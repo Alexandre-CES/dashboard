@@ -1,0 +1,13 @@
+fig = px.scatter(
+    df, -> arquivo
+
+    x='Attack', -> x do gráfico
+
+    y='Defense', -> y do gráfico
+
+    color='Type 1', -> o que será diferenciado por cor
+
+    animation_frame='Generation', -> animação de mudança entre diferentes números
+
+    title="Ataque vs Defesa" - > titulo
+)
