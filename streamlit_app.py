@@ -31,7 +31,9 @@ def display_sidebar(df):
         selected_type = st.selectbox("Selecione o Tipo", df['Type 1'].unique())
         total_range = st.slider("Selecione a Faixa de Estatística total", int(df['Total'].min()), int(df['Total'].max()), (50, 780))
 
-    return selected_generation, selected_type, total_range
+        theme = st.selectbox("Selecione o Tema", ["Light", "Dark"])
+
+    return selected_generation, selected_type, total_range, theme
 
 #filtrar com os requisitos selecionados
 def filter_data(df, generation, p_type, total_range):
@@ -39,7 +41,7 @@ def filter_data(df, generation, p_type, total_range):
     return filtered_df
 
 #Gráfico
-def create_chart(df):
+def create_chart(df, theme):
     fig = px.scatter_3d(
         df,
         x='Type 1',
@@ -47,8 +49,13 @@ def create_chart(df):
         z='Total',
         animation_frame='Generation',
         color='Total',
+        color_continuous_scale='Viridis',
         title="Mistura de tipos com maior total de estatísticas",
         hover_data={'Name': True}
+    )
+    fig.update_layout(
+        paper_bgcolor='#11141B' if theme == 'Dark' else '#F1F1F1',
+        font_color='white' if theme == 'Dark' else 'black'
     )
     st.plotly_chart(fig)
 
@@ -61,13 +68,21 @@ def main():
     st.title("Pokemon Dashboard")
     
     # Exibir barra lateral
-    selected_generation, selected_type, total_range = display_sidebar(df)
-    
+    selected_generation, selected_type, total_range, theme = display_sidebar(df)
+
+    #Aplicar tema
+    if theme == "Dark":
+        with open('styles/dark.css', 'r') as fp:
+            st.markdown(f"<style>{fp.read()}</style>", unsafe_allow_html=True)
+    else:
+        with open('styles/light.css', 'r') as fp:
+            st.markdown(f"<style>{fp.read()}</style>", unsafe_allow_html=True)
+
     # Filtrar dados
     filtered_df = filter_data(df, selected_generation, selected_type, total_range)
     
     # Criar gráfico
-    create_chart(filtered_df)
+    create_chart(filtered_df, theme)
 
 if __name__ == "__main__":
     main()
