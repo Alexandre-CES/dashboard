@@ -6,6 +6,22 @@ body{
     color: var(--color-txt);
 }
 
+header{
+    color: var(--color-txt);
+}
+
+h1{
+    color: var(--color1);
+}
+
+h2{
+    color: var(--color2);
+}
+
+p{
+    color: var(--color-txt);
+}
+
 /** Background */
 .st-emotion-cache-13k62yr{
     background-color: var(--background-body);
@@ -22,21 +38,35 @@ body{
     color: var(--color-txt);
     border: 1px solid gray;
 }
-/** Selectbox */
+
+/* Selectbox */
 .stSelectbox:first-of-type > div[data-baseweb="select"] > div {
     background-color: var(--background-body);
     color: var(--color-txt);
 }
 
-
-h1{
-    color: var(--color1);
-}
-
-h2{
-    color: var(--color2);
-}
-
-p{
+/* close sidebar */
+[Data-testid=stSidebarCollapseButton]{
     color: var(--color-txt);
+}
+
+/* open sidebar */
+[Data-testid=baseButton-headerNoPadding]{
+    color: var(--color-txt);
+}
+
+/* Selectbox -> bar */
+.st-cu{
+    background:linear-gradient(to right, rgba(172, 177, 195, 0.25) 0%, rgba(172, 177, 195, 0.25) 0%, var(--color2) 0%, var(--color2) 100%, rgba(172, 177, 195, 0.25) 100%, rgba(172, 177, 195, 0.25) 100%);
+}
+
+/* Selectbox -> min & max points */
+.st-emotion-cache-1vzeuhh{
+    color: var(--color2);
+    background-color: var(--color2);
+}
+
+/* Selectbox -> actual value txt */
+[data-testid=stThumbValue]{
+    color: var(--color2);
 }
