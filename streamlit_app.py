@@ -28,29 +28,38 @@ def display_sidebar(df):
         st.write("PDITA: PD030")
 
         selected_generation = st.selectbox("Selecione a Geração", df['Generation'].unique())
-        selected_type = st.selectbox("Selecione o Tipo", df['Type 1'].unique())
-        total_range = st.slider("Selecione a Faixa de Estatística total", int(df['Total'].min()), int(df['Total'].max()), (50, 780))
+        
+        type_options = ['Todos'] + df['Type 1'].unique().tolist()
+        selected_type = st.selectbox("Selecione o Tipo", type_options)
+        
+        stat_options = ['Total', 'HP', 'Attack', 'Defense', 'Sp. Atk', 'Sp. Def', 'Speed']
+        selected_stat = st.selectbox("Selecione a Estatística", stat_options)
+        
+        total_range = st.slider(f"Selecione a Faixa de {selected_stat}", int(df[selected_stat].min()), int(df[selected_stat].max()), (50, int(df[selected_stat].max())))
 
         theme = st.selectbox("Selecione o Tema", ["Light", "Dark"])
 
-    return selected_generation, selected_type, total_range, theme
+    return selected_generation, selected_type, selected_stat, total_range, theme
 
 #filtrar com os requisitos selecionados
-def filter_data(df, generation, p_type, total_range):
-    filtered_df = df[(df['Generation'] == generation) & (df['Type 1'] == p_type) & (df['Total'] >= total_range[0]) & (df['Total'] <= total_range[1])]
+def filter_data(df, generation, p_type, stat, total_range):
+    filtered_df = df[df['Generation'] == generation]
+    if p_type != 'Todos':
+        filtered_df = filtered_df[filtered_df['Type 1'] == p_type]
+    filtered_df = filtered_df[(df[stat] >= total_range[0]) & (df[stat] <= total_range[1])]
     return filtered_df
 
 #Gráfico
-def create_chart(df, theme):
+def create_chart(df, stat, theme):
     fig = px.scatter_3d(
         df,
         x='Type 1',
         y='Type 2',
-        z='Total',
+        z=stat,
         animation_frame='Generation',
-        color='Total',
+        color=stat,
         color_continuous_scale='Viridis',
-        title="Mistura de tipos com maior total de estatísticas",
+        title=f"Mistura de tipos com maior {stat}",
         hover_data={'Name': True}
     )
     fig.update_layout(
@@ -70,7 +79,7 @@ def main():
     st.title("Pokemon Dashboard")
     
     # Exibir barra lateral
-    selected_generation, selected_type, total_range, theme = display_sidebar(df)
+    selected_generation, selected_type, selected_stat, total_range, theme = display_sidebar(df)
 
     #Aplicar tema
     if theme == "Dark":
@@ -81,10 +90,10 @@ def main():
             st.markdown(f"<style>{fp.read()}</style>", unsafe_allow_html=True)
 
     # Filtrar dados
-    filtered_df = filter_data(df, selected_generation, selected_type, total_range)
+    filtered_df = filter_data(df, selected_generation, selected_type, selected_stat, total_range)
     
     # Criar gráfico
-    create_chart(filtered_df, theme)
+    create_chart(filtered_df, selected_stat, theme)
 
 if __name__ == "__main__":
     main()
