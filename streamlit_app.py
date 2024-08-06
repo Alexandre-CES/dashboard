@@ -55,6 +55,8 @@ def create_chart(df, theme):
     )
     fig.update_layout(
         paper_bgcolor='#11141B' if theme == 'Dark' else '#F1F1F1',
+        font=dict(color='white' if theme == 'Dark' else 'black'),
+        title_font=dict(color='white' if theme == 'Dark' else 'black'),
         font_color='white' if theme == 'Dark' else 'black'
     )
     st.plotly_chart(fig)
