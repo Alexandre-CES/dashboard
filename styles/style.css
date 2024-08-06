@@ -18,6 +18,10 @@ h2{
     color: var(--color2);
 }
 
+h3{
+    color: var(--color-txt);
+}
+
 p{
     color: var(--color-txt);
 }
@@ -39,12 +43,6 @@ p{
     border: 1px solid gray;
 }
 
-/* Selectbox */
-.stSelectbox:first-of-type > div[data-baseweb="select"] > div {
-    background-color: var(--background-body);
-    color: var(--color-txt);
-}
-
 /* close sidebar */
 [Data-testid=stSidebarCollapseButton]{
     color: var(--color-txt);
@@ -52,6 +50,18 @@ p{
 
 /* open sidebar */
 [Data-testid=baseButton-headerNoPadding]{
+    color: var(--color-txt);
+}
+
+/* Sidebar header */
+[Data-testid=stSidebarHeader]{
+    padding: 0.7rem 1.5rem 0.7rem;
+    border-bottom: 1px solid gray;
+}
+
+/* Selectbox */
+.stSelectbox:first-of-type > div[data-baseweb="select"] > div {
+    background-color: var(--background-body);
     color: var(--color-txt);
 }
 

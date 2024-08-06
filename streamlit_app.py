@@ -6,7 +6,6 @@ import plotly.express as px
 st.set_page_config(
     page_title="Pokemon Dashboard",
     layout="wide",
-    page_icon="Φ",
     initial_sidebar_state="expanded"
 )
 
@@ -46,7 +45,7 @@ def filter_data(df, generation, p_type, stat, total_range):
     filtered_df = df[df['Generation'] == generation]
     if p_type != 'Todos':
         filtered_df = filtered_df[filtered_df['Type 1'] == p_type]
-    filtered_df = filtered_df[(df[stat] >= total_range[0]) & (df[stat] <= total_range[1])]
+    filtered_df = filtered_df[(filtered_df[stat] >= total_range[0]) & (filtered_df[stat] <= total_range[1])]
     return filtered_df
 
 #Gráfico
@@ -70,6 +69,21 @@ def create_chart(df, stat, theme):
     )
     st.plotly_chart(fig)
 
+# Mostrar informações adicionais
+def display_additional_info(df, stat):
+    if not df.empty:
+        top_pokemon = df.sort_values(by=stat, ascending=False).head(2)
+        if len(top_pokemon) > 1:
+            first_pokemon = top_pokemon.iloc[0]
+            second_pokemon = top_pokemon.iloc[1]
+            difference = first_pokemon[stat] - second_pokemon[stat]
+            st.markdown(f"<h2>{first_pokemon['Name']} <span style='color: green;'>+{difference}</span></h2>", unsafe_allow_html=True)
+            st.markdown(f"<h3>{second_pokemon['Name']}<span style='color: orange;'>-{difference}</span></h3>", unsafe_allow_html=True)
+        else:
+            first_pokemon = top_pokemon.iloc[0]
+            st.markdown(f"<h2 style='text-align: center;'>{first_pokemon['Name']}</h2>", unsafe_allow_html=True)
+    else:
+        st.write("Nenhum Pokémon encontrado com os critérios selecionados.")
 
 def main():
     # Carregar dados
@@ -91,6 +105,9 @@ def main():
 
     # Filtrar dados
     filtered_df = filter_data(df, selected_generation, selected_type, selected_stat, total_range)
+
+    # Mostrar informações adicionais
+    display_additional_info(filtered_df, selected_stat)
     
     # Criar gráfico
     create_chart(filtered_df, selected_stat, theme)
