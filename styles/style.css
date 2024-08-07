@@ -26,6 +26,15 @@ p{
     color: var(--color-txt);
 }
 
+p#stronger{
+    font-size: 1.3em;
+    color: green;
+}
+
+p#weaker{
+    color: orange;
+}
+
 /** Background */
 .st-emotion-cache-13k62yr{
     background-color: var(--background-body);
@@ -65,18 +74,27 @@ p{
     color: var(--color-txt);
 }
 
+/* Selectbox arrow */
+[data-baseweb="icon"]{
+    color: var(--color-txt);
+}
+
+.stSelectbox:first-of-type > div[data-baseweb="select"] > div:hover{
+    background-color: gray;
+}
+
 /* Selectbox -> bar */
 .st-cu{
     background:linear-gradient(to right, rgba(172, 177, 195, 0.25) 0%, rgba(172, 177, 195, 0.25) 0%, var(--color2) 0%, var(--color2) 100%, rgba(172, 177, 195, 0.25) 100%, rgba(172, 177, 195, 0.25) 100%);
 }
 
-/* Selectbox -> min & max points */
+/* Selectbar -> min & max points */
 .st-emotion-cache-1vzeuhh{
     color: var(--color2);
     background-color: var(--color2);
 }
 
-/* Selectbox -> actual value txt */
+/* Selectbar -> actual value txt */
 [data-testid=stThumbValue]{
     color: var(--color2);
 }

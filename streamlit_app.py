@@ -59,7 +59,7 @@ def create_chart(df, stat, theme):
         color=stat,
         color_continuous_scale='Viridis',
         title=f"Mistura de tipos com maior {stat}",
-        hover_data={'Name': True}
+        hover_data={'Name': True,'Legendary':True}
     )
     fig.update_layout(
         paper_bgcolor='#11141B' if theme == 'Dark' else '#F1F1F1',
@@ -77,8 +77,8 @@ def display_additional_info(df, stat):
             first_pokemon = top_pokemon.iloc[0]
             second_pokemon = top_pokemon.iloc[1]
             difference = first_pokemon[stat] - second_pokemon[stat]
-            st.markdown(f"<h2>{first_pokemon['Name']} <span style='color: green;'>+{difference}</span></h2>", unsafe_allow_html=True)
-            st.markdown(f"<h3>{second_pokemon['Name']}<span style='color: orange;'>-{difference}</span></h3>", unsafe_allow_html=True)
+            st.markdown(f"<p id='stronger'>{first_pokemon['Name']} +{difference}</p>", unsafe_allow_html=True)
+            st.markdown(f"<p id='weaker'>{second_pokemon['Name']} -{difference}</p>", unsafe_allow_html=True)
         else:
             first_pokemon = top_pokemon.iloc[0]
             st.markdown(f"<h2 style='text-align: center;'>{first_pokemon['Name']}</h2>", unsafe_allow_html=True)
@@ -108,9 +108,10 @@ def main():
 
     # Mostrar informações adicionais
     display_additional_info(filtered_df, selected_stat)
-    
+
     # Criar gráfico
     create_chart(filtered_df, selected_stat, theme)
+
 
 if __name__ == "__main__":
     main()
