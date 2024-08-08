@@ -51,12 +51,11 @@ Para executar este projeto localmente, siga os seguintes passos:
    cd pokemon-dashboard
 
 2. Ative o ambiente virtual:
-  <summary>Linux/MacOS:</summary>
-  <br>
-  <pre><code>source venv/bin/activate</code></pre>
-  <summary>Windows:</summary>
-  <br>
-  <pre><code>venv\Scripts\activate</code></pre> windows: venv\Scripts\activate
+    <br><br>
+    Linux/MacOS:
+    <pre><code>source venv/bin/activate</code></pre>
+    Windows:
+    <pre><code>venv\Scripts\activate</code></pre>
     
 3. Execute o aplicativo:
     ```bash
