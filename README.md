@@ -51,9 +51,13 @@ Para executar este projeto localmente, siga os seguintes passos:
    cd pokemon-dashboard
 
 2. Ative o ambiente virtual:
-    ```bash
-    linux: source venv/bin/activate
-    windows: venv\Scripts\activate
+  <summary>Linux/MacOS:</summary>
+  <br>
+  <pre><code>source venv/bin/activate</code></pre>
+  <summary>Windows:</summary>
+  <br>
+  <pre><code>venv\Scripts\activate</code></pre> windows: venv\Scripts\activate
     
 3. Execute o aplicativo:
+    ```bash
     streamlit run streamlit_app.py
