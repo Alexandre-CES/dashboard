@@ -47,7 +47,7 @@ Para executar este projeto localmente, siga os seguintes passos:
 
 1. Clone o repositório:
    ```bash
-   git clone https://github.com/seu-usuario/pokemon-dashboard.git
+   git clone https://github.com/Alexandre-CES/dashboard.git
    cd pokemon-dashboard
 
 2. Ative o ambiente virtual:
